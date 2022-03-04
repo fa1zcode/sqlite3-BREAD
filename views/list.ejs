@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="/stylesheets/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <h1>To Do</h1>
+    <div class="card">
+      <form action="" method="get">
+        <div class="card-header">
+          <input type="hidden" name="page" value="1" />
+          <h2>Pencarian</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <label for="task" class="col-sm-2">Task</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="task" name="task" />
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-success">Cari</button>
+          <a href="/" class="btn btn-warning">Reset</a>
+        </div>
+      </form>
+    </div>
+    <table border="1" class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>String</th>
+          <th>Integer</th>
+          <th>Float</th>
+          <th>Date</th>
+          <th>Boolean</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach((item, index)=> { %>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= item.string %></td>
+          <td><%= item.integer%></td>
+          <td><%= item.float%></td>
+          <td><%= item.date%></td>
+          <td><%= item.boolean%></td>
+          <td>
+            <a href="/edit/<%= item.id%>" class="btn btn-success">Edit</a>
+            <a href="/delete/<%= item.id%>" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </nav>
+    <a href="/add" class="btn btn-primary">Tambah</a>
+  </body>
+</html>
