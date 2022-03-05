@@ -103,7 +103,7 @@
           <td><%= item.string %></td>
           <td><%= item.integer%></td>
           <td><%= item.float%></td>
-          <td><%= item.date%></td>
+          <td><%= item.date ? item.date : 'kosong' %></td>
           <td><%= item.boolean%></td>
           <td>
             <a href="/edit/<%= item.id%>" class="btn btn-success">Edit</a>

@@ -16,7 +16,6 @@ router.get("/add", function (req, res) {
 });
 
 router.post("/add", function (req, res) {
-  
   // query binding = use (?) to prevent hack via sql injection
   db.run(
     `insert into todo (string, integer, float, date, boolean) values (?,?,?,?,?)`,
@@ -29,7 +28,7 @@ router.post("/add", function (req, res) {
     ],
     (err, raws) => {
       if (err) return res.send(err);
-      console.log(req,res)
+      console.log(req, res);
       res.redirect("/");
     }
   );
@@ -51,6 +50,25 @@ router.get("/edit/:id", function (req, res) {
     if (err) return res.send(err);
     res.render("edit", { data: raws });
   });
+});
+
+router.post("/edit/:id", function (req, res) {
+  const id = Number(req.params.id);
+  db.run(
+    "update todo set string = ?, integer = ?, float = ?, date = ?, boolean = ? where id = ?",
+    [
+      req.body.string,
+      req.body.integer,
+      req.body.float,
+      req.body.date,
+      req.body.boolean,
+      id,
+    ],
+    (err, row) => {
+      if (err) return res.send(err);
+      res.redirect("/");
+    }
+  );
 });
 
 module.exports = router;
