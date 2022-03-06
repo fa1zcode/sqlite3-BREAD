@@ -1,3 +1,4 @@
+const { raw } = require("express");
 var express = require("express");
 var router = express.Router();
 var path = require("path");
@@ -5,9 +6,22 @@ var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database(path.join(__dirname, "..", "db", "todo.db"));
 
 router.get("/", function (req, res) {
-  db.all(`select * from todo`, (err, raws) => {
-    if (err) return res.send(err);
-    res.render("list", { data: raws });
+  const url = req.url == "/" ? "/?page=1" : req.url;
+  const page = req.query.page || 1;
+  const limit = 3;
+  const offset = (page - 1) * limit;
+
+  db.get(`select count (*) as total from todo`, (err, raw) => {
+    const jumlahHalaman = Math.ceil(raw.total / limit);
+    console.log(raw);
+    db.all(
+      `select * from todo limit ? offset ?`,
+      [limit, offset],
+      (err, raws) => {
+        if (err) return res.send(err);
+        res.render("list", { data: raws, page, jumlahHalaman, url });
+      }
+    );
   });
 });
 
@@ -61,7 +75,7 @@ router.post("/edit/:id", function (req, res) {
       req.body.integer,
       req.body.float,
       req.body.date,
-      req.body.boolean,
+      JSON.parse(req.body.boolean),
       id,
     ],
     (err, row) => {
