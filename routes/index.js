@@ -36,7 +36,7 @@ router.get("/", function (req, res) {
   }
 
   db.get(sql, (err, raw) => {
-    const jumlahHalaman = Math.ceil(raw.total / limit);
+    const jumlahHalaman = Math.ceil(Number(raw.total) / limit);
     sql = `select * from todo`;
     if (params.length > 0) {
       sql += ` where ${params.join(" and ")}`;
