@@ -17,6 +17,20 @@
     <form action="" method="post">
       <div class="card-body">
         <div class="row">
+          <label for="id" class="col-sm-2">ID</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="id"
+              name="id"
+              value="<%= data.id %>"
+              disabled
+            />
+          </div>
+        </div>
+
+        <div class="row">
           <label for="string" class="col-sm-2">String</label>
           <div class="col-sm-10">
             <input
