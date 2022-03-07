@@ -19,8 +19,8 @@ router.get("/", function (req, res) {
   if (req.query.float) {
     params.push(`float like '${req.query.float}' `);
   }
-  if (req.query.date) {
-    params.push(`date = ${req.query.date}`);
+  if (req.query.startDate && req.query.endDate) {
+    params.push(`date BETWEEN DATE('${req.query.startDate}') AND DATE('${req.query.endDate}') `);
   }
   if (req.query.boolean) {
     params.push(`boolean = ${req.query.boolean}`);
